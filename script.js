@@ -104,7 +104,7 @@ function getLocalTodos() {
         todoDiv.appendChild(newTodo);
 
         const completedButton = document.createElement("button");
-        completedButton.innerHTML = '<i class="fas fa-plus"></li>';
+        completedButton.innerHTML = '<i class="fas fa-check-circle"></li>';
         completedButton.classList.add("completed-btn");
         todoDiv.appendChild(completedButton);
 
