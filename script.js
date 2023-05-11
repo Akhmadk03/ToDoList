@@ -1,7 +1,7 @@
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
-const todoOption = document.querySelector(".filter-todo");
+const filterOption = document.querySelector(".filter-todo");
 
 document.addEventListener("DOMContentLoaded", getLocalTodos);
 todoButton.addEventListener("click", addTodo);
@@ -13,12 +13,12 @@ function addTodo(event) {
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
     const newTodo = document.createElement("li");
-    newTodo.innerText = todoInput.value;
+    newTodo.innerText = todoInput.value; 
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
-    //ADDING TO LOCAL STORAGE
+    //ADDING TO LOCAL STORAGE 
     saveLocalTodos(todoInput.value);
-
+    
     const completedButton = document.createElement("button");
     completedButton.innerHTML = '<i class="fas fa-check-circle"></li>';
     completedButton.classList.add("complete-btn");
@@ -28,7 +28,7 @@ function addTodo(event) {
     trashButton.innerHTML = '<i class="fas fa-trash"></li>';
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
-
+    
     todoList.appendChild(todoDiv);
     todoInput.value = "";
 }
@@ -36,12 +36,12 @@ function addTodo(event) {
 function deleteCheck(e) {
     const item = e.target;
 
-    if(item.classList[0] ==="trash-btn") {
+    if(item.classList[0] === "trash-btn") {
         const todo = item.parentElement;
         todo.classList.add("slide");
 
         removeLocalTodos(todo);
-        todo.addEventListener("transitioned", function() {
+        todo.addEventListener("transitionend", function() {
             todo.remove();
         });
     }
@@ -53,13 +53,13 @@ function deleteCheck(e) {
 }
 
 function filterTodo(e) {
-    const todos = todoList.childNodes; 
+    const todos = todoList.childNodes;
     todos.forEach(function(todo) {
         switch(e.target.value) {
-            case"all":
+            case "all": 
                 todo.style.display = "flex";
                 break;
-            case "completed":
+            case "completed": 
                 if(todo.classList.contains("completed")) {
                     todo.style.display = "flex";
                 } else {
@@ -68,13 +68,13 @@ function filterTodo(e) {
                 break;
             case "incomplete":
                 if(!todo.classList.contains("completed")) {
-                    todo.style.display = "flex"
+                    todo.style.display = "flex";
                 } else {
                     todo.style.display = "none";
                 }
                 break;
         }
-    })
+    });
 }
 
 function saveLocalTodos(todo) {
@@ -82,7 +82,7 @@ function saveLocalTodos(todo) {
     if(localStorage.getItem("todos") === null) {
         todos = [];
     } else {
-        todos =JSON.parse(localStorage.getItem("todos"));
+        todos = JSON.parse(localStorage.getItem("todos"));
     }
     todos.push(todo);
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -90,7 +90,7 @@ function saveLocalTodos(todo) {
 
 function getLocalTodos() {
     let todos;
-    if(localStorage.getItem("todos") == null) {
+    if(localStorage.getItem("todos") === null) {
         todos = [];
     } else {
         todos = JSON.parse(localStorage.getItem("todos"));
@@ -105,7 +105,7 @@ function getLocalTodos() {
 
         const completedButton = document.createElement("button");
         completedButton.innerHTML = '<i class="fas fa-check-circle"></li>';
-        completedButton.classList.add("completed-btn");
+        completedButton.classList.add("complete-btn");
         todoDiv.appendChild(completedButton);
 
         const trashButton = document.createElement("button");
@@ -122,7 +122,7 @@ function removeLocalTodos(todo) {
     if(localStorage.getItem("todos") === null) {
         todos = [];
     } else {
-        todos + JSON.parse(localStorage.getItem("todos"));
+        todos = JSON.parse(localStorage.getItem("todos"));
     }
 
     const todoIndex = todo.children[0].innerText;
